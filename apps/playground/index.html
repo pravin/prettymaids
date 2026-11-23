@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>prettymaids playground</title>
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <header>
+      <h1>prettymaids</h1>
+      <div class="controls">
+        <label>Example <select id="example"></select></label>
+        <label>Theme <select id="theme"></select></label>
+        <button id="copy">Copy SVG</button>
+        <button id="dl-svg">Download SVG</button>
+        <button id="dl-png">Download PNG</button>
+      </div>
+    </header>
+    <main>
+      <section class="pane">
+        <h2>Mermaid source</h2>
+        <textarea id="source" spellcheck="false"></textarea>
+        <div id="error" role="alert"></div>
+      </section>
+      <section class="pane">
+        <h2>Preview</h2>
+        <div id="preview"></div>
+      </section>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
