@@ -37,6 +37,8 @@ export function addDefs(svg: Element, theme: Theme): void {
 
 /** Tags flowchart nodes by shape so the theme can colour decisions and terminals differently. */
 export function classifyNodes(svg: Element): void {
+  // Only flowcharts: class/state/mindmap nodes use similar shapes but must keep the default look.
+  if (!svg.classList.contains('flowchart') && !svg.matches('[aria-roledescription^="flowchart"]')) return;
   for (const node of Array.from(svg.querySelectorAll('g.node'))) {
     if (node.querySelector(':scope > polygon, :scope > g > polygon')) {
       node.classList.add('pm-decision');

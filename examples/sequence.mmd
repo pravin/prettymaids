@@ -1,0 +1,22 @@
+sequenceDiagram
+    autonumber
+    actor User
+    participant App as Web App
+    participant API
+    participant DB as Database
+    User->>App: Open dashboard
+    App->>API: GET /me
+    activate API
+    API->>DB: SELECT user
+    DB-->>API: user row
+    API-->>App: 200 OK
+    deactivate API
+    alt Session expired
+        App->>User: Redirect to login
+    else Session valid
+        App->>User: Render dashboard
+    end
+    Note over App,API: Responses are cached for 60s
+    loop Every 30s
+        App->>API: Heartbeat
+    end

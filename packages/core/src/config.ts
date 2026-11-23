@@ -14,6 +14,7 @@ export function config(themeName: string = defaultTheme, overrides?: Params): Re
     themeVariables: theme.themeVariables,
     themeCSS: theme.css,
     fontFamily: theme.themeVariables.fontFamily,
+    ...theme.diagramConfig,
     flowchart: {
       curve: theme.curve ?? 'basis',
       ...theme.layout,

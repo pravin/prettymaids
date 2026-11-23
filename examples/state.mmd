@@ -1,0 +1,13 @@
+stateDiagram-v2
+    [*] --> Idle
+    Idle --> Loading : fetch
+    Loading --> Ready : success
+    Loading --> Error : failure
+    Error --> Loading : retry
+    Ready --> Idle : reset
+    state Ready {
+        [*] --> Viewing
+        Viewing --> Editing : edit
+        Editing --> Viewing : save
+    }
+    Ready --> [*]

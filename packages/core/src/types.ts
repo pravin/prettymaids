@@ -36,6 +36,8 @@ export interface Theme {
   curve?: string;
   /** Mermaid flowchart layout spacing, in px. */
   layout: { padding: number; nodeSpacing: number; rankSpacing: number };
+  /** Extra mermaid config merged into `config()` (per-diagram sizing: sequence, gantt, gitGraph, ...). */
+  diagramConfig?: Record<string, unknown>;
   /** If set, the post-processor adds gradients (`pm-node`, `pm-decision`, `pm-terminal`) and a `pm-shadow` filter. */
   gradients?: Gradients;
 }

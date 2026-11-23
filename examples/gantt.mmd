@@ -1,0 +1,15 @@
+gantt
+    title Launch plan
+    dateFormat YYYY-MM-DD
+    axisFormat %b %d
+    section Design
+    Research        :done, r1, 2026-01-05, 10d
+    Wireframes      :done, r2, after r1, 8d
+    Visual design   :active, r3, after r2, 10d
+    section Build
+    Backend         :b1, 2026-01-25, 20d
+    Frontend        :b2, after r3, 18d
+    Integration     :crit, b3, after b2, 7d
+    section Launch
+    QA              :q1, after b3, 7d
+    Release         :milestone, after q1, 0d
