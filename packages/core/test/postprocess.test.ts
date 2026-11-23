@@ -3,6 +3,10 @@ import { describe, expect, it } from 'vitest';
 import { classifyNodes, postprocess } from '../src/postprocess.js';
 import { config } from '../src/config.js';
 import { maid } from '../src/themes/maid.js';
+import type { Theme } from '../src/types.js';
+
+const g = { nodeFrom: '#fff', nodeTo: '#eee', decisionFrom: '#fff', decisionTo: '#eee', terminalFrom: '#fff', terminalTo: '#eee', shadow: '#000' };
+const gradTheme: Theme = { ...maid, gradients: g };
 
 function svgFrom(inner: string): Element {
   const doc = new DOMParser().parseFromString(
@@ -27,14 +31,20 @@ describe('classifyNodes', () => {
 });
 
 describe('postprocess', () => {
-  it('adds gradients and shadow filter referenced by the theme css', () => {
+  it('adds gradients and shadow filter only when the theme asks for them', () => {
     const svg = svgFrom('<g class="node"><rect class="basic label-container"/></g>');
-    postprocess(svg, maid);
+    postprocess(svg, gradTheme);
     for (const id of ['pm-node', 'pm-decision', 'pm-terminal', 'pm-shadow']) {
       expect(svg.querySelector(`#${id}`)).not.toBeNull();
-      expect(maid.css).toContain(id);
     }
-    expect(svg.querySelector('rect')!.getAttribute('rx')).toBe('12');
+    const flat = svgFrom('<g class="node"><rect class="basic label-container"/></g>');
+    postprocess(flat, maid);
+    expect(flat.querySelector('#pm-node')).toBeNull();
+  });
+  it('rounds square rects to the theme radius', () => {
+    const svg = svgFrom('<g class="node"><rect class="basic label-container"/></g>');
+    postprocess(svg, maid);
+    expect(svg.querySelector('rect')!.getAttribute('rx')).toBe(String(maid.radius));
   });
 });
 
@@ -42,7 +52,8 @@ describe('config', () => {
   it('produces a base-theme mermaid config', () => {
     const c = config('maid') as any;
     expect(c.theme).toBe('base');
-    expect(c.themeCSS).toContain('pm-node');
+    expect(c.themeCSS).toContain('stroke');
+    expect(c.flowchart.curve).toBe('step');
   });
   it('rejects unknown themes', () => {
     expect(() => config('nope')).toThrow(/Unknown theme/);

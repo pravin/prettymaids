@@ -18,7 +18,8 @@ function gradient(doc: Document, id: string, from: string, to: string): Element 
 /** Adds gradients and the drop-shadow filter that the theme CSS refers to. */
 export function addDefs(svg: Element, theme: Theme): void {
   const doc = svg.ownerDocument;
-  const p = theme.palette;
+  const p = theme.gradients;
+  if (!p) return;
   let defs: Element | null = svg.querySelector('defs');
   if (!defs) {
     defs = el(doc, 'defs', {});
@@ -58,7 +59,7 @@ export function classifyNodes(svg: Element): void {
 }
 
 /** Rounds plain rectangles that mermaid left square. */
-export function roundCorners(svg: Element, radius = 12): void {
+export function roundCorners(svg: Element, radius: number): void {
   for (const rect of Array.from(svg.querySelectorAll('g.node rect.basic, g.node rect.label-container'))) {
     if (!rect.getAttribute('rx')) {
       rect.setAttribute('rx', String(radius));
@@ -70,5 +71,5 @@ export function roundCorners(svg: Element, radius = 12): void {
 export function postprocess(svg: Element, theme: Theme): void {
   addDefs(svg, theme);
   classifyNodes(svg);
-  roundCorners(svg);
+  roundCorners(svg, theme.radius);
 }

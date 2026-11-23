@@ -9,9 +9,10 @@ export function config(themeName: string = defaultTheme): Record<string, unknown
   return {
     startOnLoad: false,
     theme: 'base',
+    look: 'classic',
     themeVariables: theme.themeVariables,
     themeCSS: theme.css,
     fontFamily: theme.themeVariables.fontFamily,
-    flowchart: { curve: 'basis', padding: 18, nodeSpacing: 55, rankSpacing: 60, htmlLabels: true },
+    flowchart: { curve: theme.curve ?? 'basis', padding: 16, nodeSpacing: 50, rankSpacing: 55, htmlLabels: true },
   };
 }
