@@ -9,7 +9,7 @@ export const maid: Theme = {
   curve: 'step',
   themeVariables: {
     fontFamily: font,
-    fontSize: '14px',
+    fontSize: '16px',
     background: '#ffffff',
     primaryColor: '#dcebfa',
     primaryBorderColor: '#3b82c4',
@@ -24,18 +24,19 @@ export const maid: Theme = {
   },
   css: `
     .node rect.label-container, .node polygon, .node circle, .node ellipse, .node .label-container path {
-      fill: #dcebfa; stroke: #3b82c4; stroke-width: 1px;
+      fill: #dcebfa; stroke: #3b82c4; stroke-width: 1.5px;
     }
     .node.pm-decision polygon { fill: #fff1cc; stroke: #e0a526; }
     .node.pm-terminal rect.label-container, .node.pm-terminal circle, .node.pm-terminal ellipse, .node.pm-terminal .label-container path {
       fill: #d9f2e0; stroke: #46a56a;
     }
     .node .label, .node .nodeLabel, .node .label text, .node .label span { color: #1f2933; }
-    .edgePaths path, .flowchart-link { stroke: #5a6472; stroke-width: 1.25px; }
+    .edgePaths path, .flowchart-link { stroke: #5a6472; stroke-width: 1.5px; }
     .marker { fill: #5a6472; stroke: #5a6472; }
-    .edgeLabel, .edgeLabel p, .edgeLabel span { background-color: #ffffff; color: #3e4754; font-size: 12px; }
+    .edgeLabel, .edgeLabel p, .edgeLabel span { background-color: #ffffff; color: #3e4754; font-size: 14px; }
     .edgeLabel rect { fill: #ffffff; opacity: 1; }
-    .cluster rect { fill: #f5f7fa; stroke: #c9d1db; stroke-width: 1px; rx: 4px; ry: 4px; }
-    .cluster .nodeLabel, .cluster-label .nodeLabel, .cluster text { color: #5a6472; font-weight: 600; }
+    .labelBkg { background-color: #ffffff; padding: 2px 6px; }
+    .cluster rect { fill: #f5f7fa; stroke: #c9d1db; stroke-width: 1.5px; rx: 4px; ry: 4px; }
+    .cluster .nodeLabel, .cluster-label .nodeLabel, .cluster text { color: #5a6472; font-size: 13px; font-weight: 600; letter-spacing: 0.02em; }
   `,
 };

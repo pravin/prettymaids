@@ -68,8 +68,22 @@ export function roundCorners(svg: Element, radius: number): void {
   }
 }
 
+/** Left-aligns subgraph titles inside the container, as Lucidchart does. */
+export function alignClusterTitles(svg: Element, inset = 14, top = 8): void {
+  for (const cluster of Array.from(svg.querySelectorAll('g.cluster'))) {
+    const rect = cluster.querySelector(':scope > rect');
+    const label = cluster.querySelector(':scope > g.cluster-label');
+    if (!rect || !label) continue;
+    const x = Number(rect.getAttribute('x'));
+    const y = Number(rect.getAttribute('y'));
+    if (Number.isNaN(x) || Number.isNaN(y)) continue;
+    label.setAttribute('transform', `translate(${x + inset}, ${y + top})`);
+  }
+}
+
 export function postprocess(svg: Element, theme: Theme): void {
   addDefs(svg, theme);
   classifyNodes(svg);
   roundCorners(svg, theme.radius);
+  alignClusterTitles(svg);
 }
