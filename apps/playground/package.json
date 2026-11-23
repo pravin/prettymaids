@@ -1,0 +1,8 @@
+{
+  "name": "prettymaids-playground",
+  "private": true,
+  "type": "module",
+  "scripts": { "dev": "vite", "build": "vite build" },
+  "dependencies": { "mermaid": "^12.3.0", "prettymaids": "*" },
+  "devDependencies": { "vite": "^8.3.8" }
+}

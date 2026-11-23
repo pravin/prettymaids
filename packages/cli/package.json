@@ -1,0 +1,9 @@
+{
+  "name": "prettymaids-cli",
+  "version": "0.0.1",
+  "license": "MIT",
+  "type": "module",
+  "bin": { "prettymaids": "dist/index.js" },
+  "scripts": { "build": "tsc -p ." },
+  "dependencies": { "prettymaids": "*", "puppeteer": "^25.18.1" }
+}
