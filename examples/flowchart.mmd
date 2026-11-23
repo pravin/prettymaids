@@ -1,0 +1,13 @@
+flowchart TD
+    A([Start]) --> B[Receive request]
+    B --> C{Authenticated?}
+    C -- Yes --> D[Load dashboard]
+    C -- No --> E[Show login]
+    E --> F[Verify credentials]
+    F --> C
+    subgraph Backend
+        D --> G[(Database)]
+        D --> H[Cache]
+    end
+    G --> I([Done])
+    H --> I

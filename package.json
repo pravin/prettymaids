@@ -1,7 +1,10 @@
 {
   "name": "prettymaids-monorepo",
   "private": true,
-  "workspaces": ["packages/*", "apps/*"],
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
   "scripts": {
     "build": "npm run build --workspaces --if-present",
     "test": "vitest run",
@@ -9,7 +12,10 @@
     "format": "prettier --write ."
   },
   "devDependencies": {
+    "esbuild": "^0.28.2",
+    "jsdom": "^29.1.1",
     "prettier": "^3.3.0",
+    "puppeteer-core": "^25.18.1",
     "typescript": "^7.0.2",
     "vitest": "^5.1.1"
   }
