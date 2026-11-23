@@ -9,7 +9,7 @@ export const maid: Theme = {
   curve: 'step',
   themeVariables: {
     fontFamily: font,
-    fontSize: '16px',
+    fontSize: '18px',
     background: '#ffffff',
     primaryColor: '#dcebfa',
     primaryBorderColor: '#3b82c4',
@@ -33,10 +33,13 @@ export const maid: Theme = {
     .node .label, .node .nodeLabel, .node .label text, .node .label span { color: #1f2933; }
     .edgePaths path, .flowchart-link { stroke: #5a6472; stroke-width: 1.5px; }
     .marker { fill: #5a6472; stroke: #5a6472; }
-    .edgeLabel, .edgeLabel p, .edgeLabel span { background-color: #ffffff; color: #3e4754; font-size: 14px; }
+    .edgeLabel, .edgeLabel p, .edgeLabel span { background-color: #ffffff; color: #3e4754; font-size: 15px; }
     .edgeLabel rect { fill: #ffffff; opacity: 1; }
     .labelBkg { background-color: #ffffff; padding: 2px 6px; }
     .cluster rect { fill: #f5f7fa; stroke: #c9d1db; stroke-width: 1.5px; rx: 4px; ry: 4px; }
-    .cluster .nodeLabel, .cluster-label .nodeLabel, .cluster text { color: #5a6472; font-size: 13px; font-weight: 600; letter-spacing: 0.02em; }
+    .cluster .nodeLabel, .cluster-label .nodeLabel, .cluster text { color: #5a6472; font-size: 14px; font-weight: 600; letter-spacing: 0.02em; }
+    /* Per-shape label sizing: mermaid measures these, so shape and edges follow. */
+    .pmTerminal .nodeLabel { display: inline-block; padding: 10px 14px; min-width: 76px; }
+    .pmDecision .nodeLabel { display: inline-block; }
   `,
 };

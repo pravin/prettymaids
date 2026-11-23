@@ -13,7 +13,7 @@ export function config(themeName: string = defaultTheme): Record<string, unknown
     themeVariables: theme.themeVariables,
     themeCSS: theme.css,
     fontFamily: theme.themeVariables.fontFamily,
-    flowchart: { curve: theme.curve ?? 'basis', padding: 26, nodeSpacing: 70, rankSpacing: 80, htmlLabels: true, wrappingWidth: 240,
+    flowchart: { curve: theme.curve ?? 'basis', padding: 22, nodeSpacing: 70, rankSpacing: 80, htmlLabels: true, wrappingWidth: 240,
       subGraphTitleMargin: { top: 12, bottom: 20 } },
   };
 }
