@@ -14,6 +14,8 @@
       <div class="controls">
         <label>Example <select id="example"></select></label>
         <label>Theme <select id="theme"></select></label>
+        <button id="reset">Reset tuning</button>
+        <button id="copy-params">Copy params</button>
         <button id="copy">Copy SVG</button>
         <button id="dl-svg">Download SVG</button>
         <button id="dl-png">Download PNG</button>
@@ -29,6 +31,10 @@
         <h2>Preview</h2>
         <div id="preview"></div>
       </section>
+      <aside class="pane" id="tuning-pane">
+        <h2>Tuning</h2>
+        <div id="tuning"></div>
+      </aside>
     </main>
     <script type="module" src="/src/main.ts"></script>
   </body>

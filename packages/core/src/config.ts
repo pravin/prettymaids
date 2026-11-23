@@ -1,11 +1,12 @@
 import { defaultTheme, getTheme } from './themes/index.js';
+import type { Params } from './types.js';
 
 /**
  * A plain mermaid config object. Pass it to `mermaid.initialize()` to get the
  * prettymaids look without any other prettymaids code (no SVG post-processing).
  */
-export function config(themeName: string = defaultTheme): Record<string, unknown> {
-  const theme = getTheme(themeName);
+export function config(themeName: string = defaultTheme, overrides?: Params): Record<string, unknown> {
+  const theme = getTheme(themeName, overrides);
   return {
     startOnLoad: false,
     theme: 'base',
@@ -13,7 +14,12 @@ export function config(themeName: string = defaultTheme): Record<string, unknown
     themeVariables: theme.themeVariables,
     themeCSS: theme.css,
     fontFamily: theme.themeVariables.fontFamily,
-    flowchart: { curve: theme.curve ?? 'basis', padding: 22, nodeSpacing: 70, rankSpacing: 80, htmlLabels: true, wrappingWidth: 240,
-      subGraphTitleMargin: { top: 12, bottom: 20 } },
+    flowchart: {
+      curve: theme.curve ?? 'basis',
+      ...theme.layout,
+      htmlLabels: true,
+      wrappingWidth: 240,
+      subGraphTitleMargin: { top: 12, bottom: 20 },
+    },
   };
 }

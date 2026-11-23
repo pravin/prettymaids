@@ -1,9 +1,12 @@
 import { config } from './config.js';
 import { postprocess } from './postprocess.js';
 import { defaultTheme, getTheme } from './themes/index.js';
+import type { Params } from './types.js';
 
 export interface RenderOptions {
   theme?: string;
+  /** Overrides for the theme's parameters (see `themes[name].params`). */
+  params?: Params;
   /** The mermaid instance. Defaults to `globalThis.mermaid`. */
   mermaid?: any;
 }
@@ -24,7 +27,7 @@ async function renderSvg(mermaid: any, source: string): Promise<string> {
 function withShapeClasses(source: string, svg: string, color: string): string {
   if (!/^\s*(flowchart|graph)\b/m.test(source)) return source;
   const probe = new DOMParser().parseFromString(svg, 'image/svg+xml').documentElement;
-  postprocess(probe, { ...getTheme(defaultTheme), gradients: undefined });
+  postprocess(probe, getTheme(defaultTheme));
   const ids = (cls: string) =>
     Array.from(probe.querySelectorAll(`g.node.${cls}`))
       .map((n) => /flowchart-(.+)-\d+$/.exec(n.getAttribute('id') ?? '')?.[1])
@@ -42,8 +45,8 @@ export async function render(source: string, opts: RenderOptions = {}): Promise<
   const mermaid = opts.mermaid ?? (globalThis as any).mermaid;
   if (!mermaid) throw new Error('prettymaids: pass `mermaid` in options or load it globally.');
   const name = opts.theme ?? defaultTheme;
-  const theme = getTheme(name);
-  mermaid.initialize(config(name));
+  const theme = getTheme(name, opts.params);
+  mermaid.initialize(config(name, opts.params));
   let svg = await renderSvg(mermaid, source);
   const sized = withShapeClasses(source, svg, String(theme.themeVariables.primaryTextColor));
   if (sized !== source) svg = await renderSvg(mermaid, sized);

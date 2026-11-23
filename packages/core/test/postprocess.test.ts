@@ -2,10 +2,11 @@
 import { describe, expect, it } from 'vitest';
 import { classifyNodes, postprocess } from '../src/postprocess.js';
 import { config } from '../src/config.js';
-import { maid } from '../src/themes/maid.js';
+import { getTheme } from '../src/themes/index.js';
 import type { Theme } from '../src/types.js';
 
 const g = { nodeFrom: '#fff', nodeTo: '#eee', decisionFrom: '#fff', decisionTo: '#eee', terminalFrom: '#fff', terminalTo: '#eee', shadow: '#000' };
+const maid = getTheme('maid');
 const gradTheme: Theme = { ...maid, gradients: g };
 
 function svgFrom(inner: string): Element {
@@ -54,6 +55,13 @@ describe('config', () => {
     expect(c.theme).toBe('base');
     expect(c.themeCSS).toContain('stroke');
     expect(c.flowchart.curve).toBe('step');
+    expect(c.flowchart.padding).toBe(22);
+  });
+  it('applies parameter overrides', () => {
+    const c = config('maid', { padding: 30, curve: 'basis', fontSize: 20 }) as any;
+    expect(c.flowchart.padding).toBe(30);
+    expect(c.flowchart.curve).toBe('basis');
+    expect(c.themeVariables.fontSize).toBe('20px');
   });
   it('rejects unknown themes', () => {
     expect(() => config('nope')).toThrow(/Unknown theme/);
