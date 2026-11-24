@@ -2,7 +2,7 @@
 
 **Make [Mermaid](https://mermaid.js.org) diagrams look good.** Modern themes, SVG post-processing, a CLI and a live playground, built around stock Mermaid so every diagram type keeps working.
 
-**[Try it live in the playground →](https://pravin.github.io/prettymaids/)**
+**[Try it live in the playground →](https://pravin.github.io/prettymaids/)** · **[Gallery: every diagram type, side by side →](https://pravin.github.io/prettymaids/gallery/)**
 
 ![Stock mermaid, prettymaids, and prettymaids dark](docs/images/hero.png)
 

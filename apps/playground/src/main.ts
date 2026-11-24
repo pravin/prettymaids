@@ -181,6 +181,14 @@ $('dl-png').addEventListener('click', async () => {
 });
 
 buildTuning();
+// Mermaid measures label widths when it renders, so wait for the web font first; otherwise
+// labels are sized for the fallback font and clip once Inter arrives.
+const fontsReady = Promise.race([
+  Promise.all(['400', '500', '600', '700'].map((w) => document.fonts.load(`${w} 17px Inter`))),
+  new Promise((r) => setTimeout(r, 3000)),
+]);
 exampleEl.value = 'flowchart';
 sourceEl.value = exampleEl.dataset.flowchart ?? '';
-update();
+fontsReady.then(update, update);
+// The gallery page only exists on the hosted site.
+if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') $('gallery-link').hidden = true;

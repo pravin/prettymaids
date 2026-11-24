@@ -8,7 +8,7 @@ import path from 'node:path';
 const root = path.resolve(fileURLToPath(import.meta.url), '../..');
 const chrome = process.env.CHROME_PATH ?? '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const only = process.argv.slice(2);
-const themes = (process.env.THEMES ?? 'maid').split(',');
+const themes = (process.env.THEMES ?? 'maid,maid-dark,maid-flat').split(',');
 
 const bundle = await build({
   entryPoints: [path.join(root, 'packages/core/src/index.ts')],
@@ -20,7 +20,8 @@ const outDir = path.join(root, 'examples/rendered');
 await mkdir(outDir, { recursive: true });
 const files = (await readdir(path.join(root, 'examples'))).filter((f) => f.endsWith('.mmd') && (!only.length || only.some((o) => f.includes(o))));
 
-const browser = await puppeteer.launch({ executablePath: chrome, headless: true });
+// GitHub runners block Chrome's sandbox; harmless to disable for rendering our own examples there.
+const browser = await puppeteer.launch({ executablePath: chrome, headless: true, args: process.env.CI ? ['--no-sandbox'] : [] });
 const page = await browser.newPage();
 await page.setViewport({ width: 1200, height: 900, deviceScaleFactor: 2 });
 await page.setContent('<html><body style="margin:0"><div id="out"></div></body></html>');

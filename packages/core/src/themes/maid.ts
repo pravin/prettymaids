@@ -126,6 +126,8 @@ function create(name: string, params: ParamSpec[], overrides: Params = {}): Them
     .labelBkg { background-color: ${bg}; ${chip ? `border: 1px solid ${hair}; border-radius: 999px; padding: 2px 10px;` : 'padding: 2px 6px;'} }
     .cluster rect { fill: ${s('clusterFill')}; stroke: ${hair}; stroke-width: ${sw}; rx: ${Math.round(n('radius') * 1.2)}px; ry: ${Math.round(n('radius') * 1.2)}px; }
     .cluster .nodeLabel, .cluster-label .nodeLabel, .cluster text { color: ${muted}; font-size: ${Math.round(fs * 0.72)}px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; }
+    /* Labels are measured with whatever font was installed at render time. If the viewer's font is a little wider, spill rather than clip. */
+    foreignObject { overflow: visible; }
     /* Per-shape label sizing: mermaid measures these, so shape and edges follow. */
     .pmTerminal .nodeLabel { display: inline-block; padding: 10px 14px; min-width: 76px; }
     .pmDecision .nodeLabel { display: inline-block; }
