@@ -102,7 +102,7 @@ export function hideEmptyEdgeLabels(svg: Element): void {
   }
 }
 
-/** Left-aligns subgraph titles inside the container, as Lucidchart does. */
+/** Left-aligns subgraph titles inside the container, in the style of whiteboard tools. */
 export function alignClusterTitles(svg: Element, inset = 14, top = 8): void {
   for (const cluster of Array.from(svg.querySelectorAll('g.cluster'))) {
     const rect = cluster.querySelector(':scope > rect');

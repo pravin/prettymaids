@@ -1,59 +1,149 @@
 # prettymaids
 
-Prettier [Mermaid](https://mermaid.js.org) diagrams. Wraps mermaid's parser and layout, then restyles the output with themes and SVG post-processing, so every diagram type keeps working.
+**Make [Mermaid](https://mermaid.js.org) diagrams look good.** Modern themes, SVG post-processing, a CLI and a live playground, built around stock Mermaid so every diagram type keeps working.
 
-Use it four ways:
+![Stock mermaid, prettymaids, and prettymaids dark](docs/images/hero.png)
 
-- **Theme**: drop a config into `mermaid.initialize(...)`
-- **Library**: `render(source, { theme })` returns SVG
-- **CLI**: `prettymaids in.mmd -o out.svg`
-- **Playground**: live editor in `apps/playground`
+- **Modern defaults.** Hairline borders, soft shadows, chip-style edge labels, rounded boxes, Inter typography.
+- **Three themes.** `maid` (light), `maid-dark`, and `maid-flat` (solid pastels, no shadow). One factory, so every setting works on every theme.
+- **Tunable.** Type sizes, spacing, corner radius, connector style, colours, shadows, dot-grid canvas. Over 25 parameters, adjustable live in the playground.
+- **Nine diagram types styled**: flowchart, sequence, class, state, ER, gantt, pie (as donuts), mindmap (XMind-style branches) and git graph.
+- **Use it four ways**: a Mermaid theme config, a JS library, a CLI (SVG/PNG), and a browser playground.
 
-## Try it
+![maid-flat, maid and maid-dark on a sequence diagram](docs/images/themes.png)
+
+## Gallery
+
+Stock Mermaid on the left, prettymaids on the right.
+
+| | |
+| --- | --- |
+| **Sequence** | ![sequence](docs/images/sequence.png) |
+| **Class** | ![class](docs/images/class.png) |
+| **State** | ![state](docs/images/state.png) |
+| **Entity-relationship** | ![ER](docs/images/er.png) |
+| **Gantt** | ![gantt](docs/images/gantt.png) |
+| **Pie** | ![pie](docs/images/pie.png) |
+| **Mindmap** | ![mindmap](docs/images/mindmap.png) |
+| **Git graph** | ![git graph](docs/images/gitgraph.png) |
+
+## Quick start
+
+prettymaids is not published to npm yet, so for now use it from a clone:
 
 ```sh
+git clone https://github.com/pravin/prettymaids.git
+cd prettymaids
 npm install
-npm run dev          # playground at http://localhost:5173
-node scripts/render-examples.mjs   # renders examples/*.mmd to examples/rendered/ (needs Google Chrome)
 ```
 
-The playground has a live editor, an example picker, a theme picker (including stock mermaid for comparison), and SVG/PNG export.
+### 1. Playground
 
-The playground's right-hand panel tunes the theme live (type sizes, spacing, corner radius, line weight, connector style, colours). Settings persist in your browser; "Copy params" gives you the JSON to pass as `render(src, { params })`.
+```sh
+npm run dev      # http://localhost:5173
+```
 
-## CLI
+Edit Mermaid on the left, see the result live, switch themes, drag the tuning sliders, and export SVG or PNG. Your tuning is remembered in the browser, and "Copy params" gives you the JSON for the library or CLI.
+
+### 2. CLI
 
 ```sh
 npm run build -w packages/cli
-node packages/cli/dist/index.js examples/flowchart.mmd -o flowchart.png          # PNG (2x)
-node packages/cli/dist/index.js examples/sequence.mmd -t maid-dark -o seq.svg    # dark SVG
-cat diagram.mmd | node packages/cli/dist/index.js -p fontSize=20 -p connector=curved > out.svg
-node packages/cli/dist/index.js --list-themes                                     # every tunable parameter
+alias prettymaids="node $PWD/packages/cli/dist/index.js"
+
+prettymaids examples/flowchart.mmd -o flowchart.png            # PNG at 2x
+prettymaids examples/sequence.mmd -t maid-dark -o seq.svg      # dark SVG
+cat diagram.mmd | prettymaids -p fontSize=20 -p grid=dots > out.svg
+prettymaids --list-themes                                      # every parameter, with ranges
 ```
 
-Output format comes from the extension (`.svg` or `.png`); with no `-o`, SVG goes to stdout. `--bg <colour|transparent>` sets the background (PNG defaults to white), `--scale <n>` sets PNG resolution. It drives headless Chrome (found automatically, or set `CHROME_PATH`). Text is drawn with fonts installed on the machine, so install Open Sans to match the playground.
-
-Exit codes: 0 ok, 1 render/IO failure (e.g. mermaid syntax error), 2 bad usage.
-
-## Themes
-
-- `maid`: modern default. Hairline borders, soft layered shadow, chip-style edge labels, donut charts, XMind-style mindmaps (curved branches that thin out, solid main topics, light sub-topics).
-- `maid-dark`: the same on a dark background.
-- `lucid`: the earlier flat, Lucidchart-like look (saturated 1.5px borders, no shadow, square-ish).
-
-All three are one factory with different defaults, so every parameter works on every theme. Notable switches: `shadow` (none/soft/lifted), `edgeLabels` (chip/plain), `pie` (donut/pie), `mindmap` (organic/plain), `grid` (none/dots), `connector` (rounded, the default, or elbow/straight/curved, which switch to the dagre layout).
-
-## Status
-
-The `maid` theme (flat, Lucidchart-like) covers flowchart, sequence, class, state, ER, gantt, pie, mindmap and git graph. Next: other diagram types (journey, timeline, quadrant, XY chart, ...) and publishing.
-
-Known limits: mermaid builds decision diamonds as squares, so they cannot be made wide like Lucidchart's; the two-pass pill/diamond sizing only applies to `render()`, not the plain `config()` theme.
-
-## Layout
-
-| Path | Purpose |
+| Option | |
 | --- | --- |
-| `packages/core` | themes, SVG post-processor, `render()` |
-| `packages/cli` | command-line renderer (puppeteer) |
-| `apps/playground` | Vite playground |
-| `examples` | sample `.mmd` per diagram type |
+| `-o, --output <file>` | `.svg` or `.png`. Default: SVG to stdout |
+| `-t, --theme <name>` | `maid` (default), `maid-dark`, `maid-flat` |
+| `-p, --param <key=value>` | Override a theme parameter. Repeatable; validated against the theme |
+| `--bg <colour\|transparent>` | Background. PNG defaults to white |
+| `--scale <n>` | PNG pixel scale (default 2) |
+
+The CLI drives headless Chrome (found automatically, or set `CHROME_PATH`) because Mermaid needs a real browser to measure text. Text uses fonts installed on your machine, so install [Inter](https://rsms.me/inter/) to match the screenshots. Exit codes: `0` ok, `1` render or I/O failure (such as a Mermaid syntax error), `2` bad usage.
+
+### 3. Library
+
+```js
+import mermaid from 'mermaid';
+import { render } from 'prettymaids';
+
+const svg = await render('flowchart LR\n  A --> B --> C', {
+  theme: 'maid-dark',
+  params: { fontSize: 20, grid: 'dots' },
+  mermaid,
+});
+```
+
+`render()` needs a DOM (a browser or headless Chrome); for server-side use, the CLI is the easiest route.
+
+### 4. Just a Mermaid theme
+
+If you only want the colours, typography and connectors inside an existing Mermaid setup:
+
+```js
+import { config } from 'prettymaids';
+mermaid.initialize(config('maid'));
+```
+
+This works with no other prettymaids code. It does not include what needs post-processing: shadows, donut pies, XMind-style mindmaps, rounded class/ER boxes, and the pill/diamond colouring. Use `render()` for the full look.
+
+## Themes and parameters
+
+| Theme | Look |
+| --- | --- |
+| `maid` | Hairline borders, soft shadow, chip edge labels, donut pies, organic mindmaps |
+| `maid-dark` | The same on a dark background |
+| `maid-flat` | Solid pastel fills, saturated 1.5px borders, no shadow, small corners |
+
+Common parameters (run `prettymaids --list-themes` for all of them):
+
+| Parameter | Values | |
+| --- | --- | --- |
+| `fontSize`, `edgeFontSize`, `fontWeight` | numbers | Type sizes and label weight |
+| `font` | Inter, Open Sans, Helvetica, System, Mono | |
+| `padding`, `nodeSpacing`, `rankSpacing` | numbers | Layout spacing |
+| `radius`, `strokeWidth`, `lineWidth` | numbers | Corner radius, border and connector weight |
+| `connector` | `rounded`, `elbow`, `straight`, `curved` | `rounded` is Mermaid's default layout; the others switch to the dagre layout |
+| `shadow` | `none`, `soft`, `lifted` | |
+| `edgeLabels` | `chip`, `plain` | |
+| `pie` / `mindmap` | `donut`\|`pie` / `organic`\|`plain` | |
+| `grid` | `none`, `dots` | Dot-grid canvas |
+| `paintBackground`, `background` | `transparent`\|`solid`, colour | |
+| `nodeFill`, `nodeStroke`, `decisionFill`, `terminalFill`, `lineColor`, `textColor`, ... | colours | |
+
+## Diagram support
+
+Styled: flowchart, sequence, class, state, ER, gantt, pie, mindmap, git graph.
+Not styled yet (they still render, in Mermaid's defaults): journey, timeline, quadrant, XY chart, sankey, block, and others.
+
+## How it works
+
+prettymaids keeps Mermaid's parser and layout and changes how the result looks, in three layers: Mermaid `themeVariables` and `themeCSS`, per-diagram Mermaid config, and a DOM post-processor on the rendered SVG (shadows, rounded boxes, donut clipping, mindmap branches, dot grid). For flowcharts, `render()` renders twice: the first pass finds the pills and diamonds, the second sizes them consistently.
+
+## Known limits
+
+- Mermaid builds decision diamonds as squares, so they can't be made wide.
+- The two-pass pill/diamond sizing applies to `render()` only, not the `config()` drop-in.
+- `elbow` connectors use Mermaid's dagre layout and have slightly rougher arrowheads than the default `rounded`.
+- Tested with Mermaid 12.3.
+
+## Development
+
+```sh
+npm test                                   # vitest
+npm run build -w packages/cli              # CLI + browser bundle
+THEMES=maid,maid-dark,maid-flat node scripts/render-examples.mjs   # render examples/*.mmd (needs Google Chrome)
+node scripts/docs-images.mjs               # rebuild docs/images
+```
+
+Layout: `packages/core` (themes, post-processor, `render()`), `packages/cli`, `apps/playground`, `examples`.
+
+## License
+
+[MIT](LICENSE). Dependencies keep their own licences (almost all MIT, ISC or Apache-2.0; Mermaid's layout engine elkjs is EPL-2.0 or GPL-3.0). No fonts are bundled; Inter and Open Sans are loaded by name or from Google Fonts in the playground.

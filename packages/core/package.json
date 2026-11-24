@@ -1,13 +1,41 @@
 {
   "name": "prettymaids",
   "version": "0.0.1",
-  "description": "Prettier Mermaid diagrams: themes and SVG post-processing",
+  "description": "Prettier Mermaid diagrams: modern themes and SVG post-processing",
   "license": "MIT",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": ["dist"],
-  "scripts": { "build": "tsc -p ." },
-  "peerDependencies": { "mermaid": ">=11" },
-  "devDependencies": { "mermaid": "^12.3.0" }
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "peerDependencies": {
+    "mermaid": ">=11"
+  },
+  "devDependencies": {
+    "mermaid": "^12.3.0"
+  },
+  "author": "Pravin Paratey",
+  "homepage": "https://github.com/pravin/prettymaids#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pravin/prettymaids.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pravin/prettymaids/issues"
+  },
+  "keywords": [
+    "mermaid",
+    "diagram",
+    "diagrams",
+    "theme",
+    "svg",
+    "flowchart",
+    "mindmap",
+    "visualization",
+    "cli"
+  ]
 }

@@ -259,8 +259,8 @@ function create(name: string, params: ParamSpec[], overrides: Params = {}): Them
 /** The modern default: hairline borders, soft shadow, chips, donuts, organic mindmaps. */
 export const maid = makeMaid('maid');
 
-/** The earlier flat, Lucidchart-like look: saturated 1.5px borders, no shadow, square-ish. */
-export const lucid = makeMaid('lucid', {
+/** Flat look: saturated 1.5px borders, solid pastel fills, no shadow, small corners. */
+export const maidFlat = makeMaid('maid-flat', {
   font: 'Open Sans', fontSize: 18, fontWeight: 400, edgeFontSize: 15, padding: 22, nodeSpacing: 70, rankSpacing: 80,
   radius: 4, strokeWidth: 1.5, lineWidth: 1.5, shadow: 'none', edgeLabels: 'plain', pie: 'pie', mindmap: 'plain',
   nodeFill: '#dcebfa', nodeStroke: '#3b82c4', decisionFill: '#fff1cc', decisionStroke: '#e0a526',

@@ -1,15 +1,44 @@
 {
   "name": "prettymaids-cli",
   "version": "0.0.1",
-  "description": "Render Mermaid diagrams to pretty SVG/PNG from the command line",
+  "description": "Render Mermaid diagrams as pretty SVG/PNG from the command line",
   "license": "MIT",
   "type": "module",
-  "bin": { "prettymaids": "dist/index.js" },
-  "files": ["dist"],
+  "bin": {
+    "prettymaids": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "node build.mjs",
     "typecheck": "tsc -p . --noEmit"
   },
-  "dependencies": { "mermaid": "^12.3.0", "puppeteer": "^25.18.1" },
-  "devDependencies": { "prettymaids": "*" }
+  "dependencies": {
+    "mermaid": "^12.3.0",
+    "puppeteer": "^25.18.1"
+  },
+  "devDependencies": {
+    "prettymaids": "*"
+  },
+  "author": "Pravin Paratey",
+  "homepage": "https://github.com/pravin/prettymaids#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pravin/prettymaids.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pravin/prettymaids/issues"
+  },
+  "keywords": [
+    "mermaid",
+    "diagram",
+    "diagrams",
+    "theme",
+    "svg",
+    "flowchart",
+    "mindmap",
+    "visualization",
+    "cli"
+  ]
 }

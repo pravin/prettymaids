@@ -30,10 +30,12 @@ page.on('pageerror', (e) => console.error('page error:', e.message));
 page.on('console', (m) => m.type() === 'error' && console.error('console:', m.text()));
 
 async function shoot(svg, bg, name) {
-  await page.evaluate((s, b) => {
+  // Themes that paint their own background fill the frame edge to edge.
+  const pad = svg.includes('data-pm="background"') ? 0 : 32;
+  await page.evaluate((s, b, pad) => {
     document.body.style.background = b;
-    document.getElementById('out').innerHTML = `<div style="display:inline-block;padding:32px">${s}</div>`;
-  }, svg, bg);
+    document.getElementById('out').innerHTML = `<div style="display:inline-block;padding:${pad}px">${s}</div>`;
+  }, svg, bg, pad);
   const box = await page.$('#out > div');
   await box.screenshot({ path: path.join(outDir, `${name}.png`) });
   await writeFile(path.join(outDir, `${name}.svg`), svg);

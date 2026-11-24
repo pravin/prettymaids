@@ -46,7 +46,7 @@ describe('postprocess', () => {
     expect(f.querySelectorAll('feDropShadow').length).toBe(2);
     expect(maid.css).toContain('pm-shadow');
     const flat = svgFrom('<g class="node"><rect class="basic label-container"/></g>');
-    postprocess(flat, getTheme('lucid'));
+    postprocess(flat, getTheme('maid-flat'));
     expect(flat.querySelector('#pm-shadow')).toBeNull();
   });
   it('rounds square rects to the theme radius', () => {
@@ -138,8 +138,8 @@ describe('dot grid', () => {
 });
 
 describe('themes', () => {
-  it('lucid keeps the earlier flat look; maid-dark paints a dark background', () => {
-    const l = getTheme('lucid');
+  it('maid-flat keeps the flat look; maid-dark paints a dark background', () => {
+    const l = getTheme('maid-flat');
     expect(l.radius).toBe(4);
     expect(l.shadow).toBeUndefined();
     expect(l.donut).toBeUndefined();
