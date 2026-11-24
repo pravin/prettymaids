@@ -4,7 +4,7 @@
 
 **[Try it live in the playground →](https://pravin.github.io/prettymaids/)** · **[Gallery: every diagram type, side by side →](https://pravin.github.io/prettymaids/gallery/)**
 
-![Stock mermaid, prettymaids, and prettymaids dark](docs/images/hero.png)
+![Stock mermaid next to prettymaids, shown half light and half dark](docs/images/hero.png)
 
 - **Modern defaults.** Hairline borders, soft shadows, chip-style edge labels, rounded boxes, Inter typography.
 - **Three themes.** `maid` (light), `maid-dark`, and `maid-flat` (solid pastels, no shadow). One factory, so every setting works on every theme.

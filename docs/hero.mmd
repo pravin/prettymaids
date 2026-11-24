@@ -1,0 +1,4 @@
+flowchart LR
+    A([Start]) --> B{Authenticated?}
+    B -- Yes --> C[Load dashboard]
+    B -- No --> D[Show login]
