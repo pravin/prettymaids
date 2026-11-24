@@ -12,6 +12,10 @@
 - **Nine diagram types styled**: flowchart, sequence, class, state, ER, gantt, pie (as donuts), mindmap (XMind-style branches) and git graph.
 - **Use it four ways**: a Mermaid theme config, a JS library, a CLI (SVG/PNG), and a browser playground.
 
+**Tune it live.** Every look is a handful of parameters: radius, borders, colours, shadows, connectors, themes.
+
+![Live tuning in the playground: corner radius, colours, shadow, connector style, dark theme, dot grid, mindmap, donut pie](docs/images/tuning.gif)
+
 ![maid-flat, maid and maid-dark on a sequence diagram](docs/images/themes.png)
 
 ## Gallery
@@ -31,33 +35,28 @@ Stock Mermaid on the left, prettymaids on the right.
 
 ## Quick start
 
-prettymaids is not published to npm yet, so for now use it from a clone:
+### 1. Playground
+
+**[Open the hosted playground](https://pravin.github.io/prettymaids/)**: edit Mermaid, switch themes, drag the tuning sliders, export SVG or PNG. Your tuning is remembered in the browser, and "Copy params" gives you the JSON for the library or CLI.
+
+To run it locally:
 
 ```sh
 git clone https://github.com/pravin/prettymaids.git
-cd prettymaids
-npm install
-```
-
-### 1. Playground
-
-```sh
+cd prettymaids && npm install
 npm run dev      # http://localhost:5173
 ```
-
-Edit Mermaid on the left, see the result live, switch themes, drag the tuning sliders, and export SVG or PNG. Your tuning is remembered in the browser, and "Copy params" gives you the JSON for the library or CLI.
 
 ### 2. CLI
 
 ```sh
-npm run build -w packages/cli
-alias prettymaids="node $PWD/packages/cli/dist/index.js"
-
-prettymaids examples/flowchart.mmd -o flowchart.png            # PNG at 2x
-prettymaids examples/sequence.mmd -t maid-dark -o seq.svg      # dark SVG
-cat diagram.mmd | prettymaids -p fontSize=20 -p grid=dots > out.svg
-prettymaids --list-themes                                      # every parameter, with ranges
+npx prettymaids-cli diagram.mmd -o diagram.png               # PNG at 2x
+npx prettymaids-cli diagram.mmd -t maid-dark -o diagram.svg  # dark SVG
+cat diagram.mmd | npx prettymaids-cli -p fontSize=20 -p grid=dots > out.svg
+npx prettymaids-cli --list-themes                            # every parameter, with ranges
 ```
+
+Or `npm install -g prettymaids-cli` to get the `prettymaids` command.
 
 | Option | |
 | --- | --- |
@@ -67,9 +66,13 @@ prettymaids --list-themes                                      # every parameter
 | `--bg <colour\|transparent>` | Background. PNG defaults to white |
 | `--scale <n>` | PNG pixel scale (default 2) |
 
-The CLI drives headless Chrome (found automatically, or set `CHROME_PATH`) because Mermaid needs a real browser to measure text. Text uses fonts installed on your machine, so install [Inter](https://rsms.me/inter/) to match the screenshots. Exit codes: `0` ok, `1` render or I/O failure (such as a Mermaid syntax error), `2` bad usage.
+The CLI drives headless Chrome (a copy is downloaded on install, or set `CHROME_PATH` to use your own) because Mermaid needs a real browser to measure text. Text uses fonts installed on your machine, so install [Inter](https://rsms.me/inter/) to match the screenshots. Exit codes: `0` ok, `1` render or I/O failure (such as a Mermaid syntax error), `2` bad usage.
 
 ### 3. Library
+
+```sh
+npm install prettymaids mermaid
+```
 
 ```js
 import mermaid from 'mermaid';
@@ -141,7 +144,8 @@ prettymaids keeps Mermaid's parser and layout and changes how the result looks, 
 npm test                                   # vitest
 npm run build -w packages/cli              # CLI + browser bundle
 THEMES=maid,maid-dark,maid-flat node scripts/render-examples.mjs   # render examples/*.mmd (needs Google Chrome)
-node scripts/docs-images.mjs               # rebuild docs/images
+node scripts/docs-images.mjs               # rebuild the README images
+node scripts/record-gif.mjs                # re-record docs/images/tuning.gif (needs Chrome + ffmpeg)
 ```
 
 Layout: `packages/core` (themes, post-processor, `render()`), `packages/cli`, `apps/playground`, `examples`.

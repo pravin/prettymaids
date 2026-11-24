@@ -1,6 +1,6 @@
 {
   "name": "prettymaids-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Render Mermaid diagrams as pretty SVG/PNG from the command line",
   "license": "MIT",
   "type": "module",
