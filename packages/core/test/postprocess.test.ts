@@ -57,6 +57,26 @@ describe('postprocess', () => {
   });
 });
 
+describe('background', () => {
+  it('paints a solid background as the first child, beneath later defs', () => {
+    const doc = new DOMParser().parseFromString(
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="4 4 100 50"><g class="content"/><defs/></svg>',
+      'image/svg+xml',
+    );
+    const svg = doc.documentElement;
+    postprocess(svg, { ...maid, background: '#123456' });
+    const first = svg.firstElementChild!;
+    expect(first.getAttribute('data-pm')).toBe('background');
+    expect(first.getAttribute('fill')).toBe('#123456');
+    expect(first.getAttribute('width')).toBe('100');
+  });
+  it('is transparent by default and solid for maid-dark', () => {
+    expect(getTheme('maid').background).toBeUndefined();
+    expect(getTheme('maid-dark').background).toBe('#1a2230');
+    expect(getTheme('maid', { paintBackground: 'solid' }).background).toBe('#ffffff');
+  });
+});
+
 describe('config', () => {
   it('produces a base-theme mermaid config', () => {
     const c = config('maid') as any;

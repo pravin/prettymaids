@@ -83,9 +83,23 @@ export function alignClusterTitles(svg: Element, inset = 14, top = 8): void {
   }
 }
 
+/** Paints a solid background behind everything, covering the viewBox. */
+export function addBackground(svg: Element, color: string): void {
+  const doc = svg.ownerDocument;
+  const [x, y, w, h] = (svg.getAttribute('viewBox') ?? '').split(/\s+/).map(Number);
+  if ([x, y, w, h].some((n) => Number.isNaN(n))) {
+    svg.setAttribute('style', `${svg.getAttribute('style') ?? ''};background:${color}`);
+    return;
+  }
+  const rect = el(doc, 'rect', { x: String(x), y: String(y), width: String(w), height: String(h), fill: color, 'data-pm': 'background' });
+  // First child, so it paints beneath everything (mermaid may put <defs> last).
+  svg.insertBefore(rect, svg.firstChild);
+}
+
 export function postprocess(svg: Element, theme: Theme): void {
   addDefs(svg, theme);
   classifyNodes(svg);
   roundCorners(svg, theme.radius);
   alignClusterTitles(svg);
+  if (theme.background) addBackground(svg, theme.background);
 }

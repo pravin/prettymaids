@@ -30,6 +30,8 @@ export interface Theme {
   themeVariables: Record<string, string | boolean>;
   /** CSS injected into the diagram via mermaid's `themeCSS`. */
   css: string;
+  /** If set, the post-processor paints this colour behind the diagram (otherwise the SVG is transparent). */
+  background?: string;
   /** Corner radius applied to rectangular nodes. */
   radius: number;
   /** Mermaid flowchart edge curve (`basis`, `linear`, `step`, ...). */
