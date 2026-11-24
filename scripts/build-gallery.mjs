@@ -34,7 +34,18 @@ for (const name of names) {
 
 const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>prettymaids gallery</title>
-XX
+<meta name="description" content="Stock Mermaid next to the prettymaids themes, for every diagram type.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="prettymaids gallery: Mermaid, before and after">
+<meta property="og:description" content="Stock Mermaid next to the prettymaids themes, for every diagram type.">
+<meta property="og:url" content="https://pravin.github.io/prettymaids/gallery/">
+<meta property="og:image" content="https://pravin.github.io/prettymaids/social.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="prettymaids gallery: Mermaid, before and after">
+<meta name="twitter:description" content="Stock Mermaid next to the prettymaids themes, for every diagram type.">
+<meta name="twitter:image" content="https://pravin.github.io/prettymaids/social.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f3f5f9;--card:#fff;--text:#1c2433;--muted:#5b6678;--line:#e0e5ee;--accent:#4f7cf0}
