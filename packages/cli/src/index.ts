@@ -3,7 +3,9 @@ import { themes } from 'prettymaids';
 import { HELP, parseCli, UsageError, type CliOptions } from './args.js';
 import { renderDiagram } from './render.js';
 
-const VERSION = '0.0.1';
+// Injected from package.json at build time (see build.mjs).
+declare const __VERSION__: string;
+const VERSION = typeof __VERSION__ === 'undefined' ? 'dev' : __VERSION__;
 
 async function readStdin(): Promise<string> {
   const chunks: Buffer[] = [];

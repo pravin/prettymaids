@@ -1,16 +1,19 @@
 {
   "name": "prettymaids",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Prettier Mermaid diagrams: modern themes and SVG post-processing",
   "license": "MIT",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
-    "build": "tsc -p ."
+    "build": "tsc -p .",
+    "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
     "mermaid": ">=11"
@@ -37,5 +40,15 @@
     "mindmap",
     "visualization",
     "cli"
-  ]
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "engines": {
+    "node": ">=18"
+  }
 }
