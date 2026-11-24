@@ -1,11 +1,7 @@
-export interface Gradients {
-  nodeFrom: string;
-  nodeTo: string;
-  decisionFrom: string;
-  decisionTo: string;
-  terminalFrom: string;
-  terminalTo: string;
-  shadow: string;
+export interface Shadow {
+  color: string;
+  /** Stacked soft shadows, tight first. */
+  layers: { dy: number; blur: number; opacity: number }[];
 }
 
 export type ParamValue = string | number;
@@ -42,8 +38,14 @@ export interface Theme {
   layout: { padding: number; nodeSpacing: number; rankSpacing: number };
   /** Extra mermaid config merged into `config()` (per-diagram sizing: sequence, gantt, gitGraph, ...). */
   diagramConfig?: Record<string, unknown>;
-  /** If set, the post-processor adds gradients (`pm-node`, `pm-decision`, `pm-terminal`) and a `pm-shadow` filter. */
-  gradients?: Gradients;
+  /** If set, the post-processor defines a `pm-shadow` filter that the theme CSS applies to nodes. */
+  shadow?: Shadow;
+  /** If set, draws a dot-grid canvas behind the diagram. */
+  dots?: { color: string; spacing: number };
+  /** Donut hole size as a fraction of the pie radius (0 < x < 1). Unset keeps a full pie. */
+  donut?: number;
+  /** XMind-style mindmaps: curved, tapering coloured branches and lighter sub-topics. */
+  organicMindmap?: boolean;
 }
 
 export interface ThemeDef {

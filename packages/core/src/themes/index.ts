@@ -1,7 +1,7 @@
 import type { Params, Theme, ThemeDef } from '../types.js';
-import { maid, maidDark } from './maid.js';
+import { lucid, maid, maidDark } from './maid.js';
 
-export const themes: Record<string, ThemeDef> = { maid, 'maid-dark': maidDark };
+export const themes: Record<string, ThemeDef> = { maid, 'maid-dark': maidDark, lucid };
 export const defaultTheme = 'maid';
 
 /** Builds a theme by name; `overrides` replace individual parameter defaults. */

@@ -37,10 +37,11 @@ Exit codes: 0 ok, 1 render/IO failure (e.g. mermaid syntax error), 2 bad usage.
 
 ## Themes
 
-- `maid`: flat, Lucidchart-like, transparent background.
-- `maid-dark`: the same on a dark navy background (painted into the SVG).
+- `maid`: modern default. Hairline borders, soft layered shadow, chip-style edge labels, donut charts, XMind-style mindmaps (curved branches that thin out, solid main topics, light sub-topics).
+- `maid-dark`: the same on a dark background.
+- `lucid`: the earlier flat, Lucidchart-like look (saturated 1.5px borders, no shadow, square-ish).
 
-Connector style: `rounded` (default, mermaid's orthogonal layout), or `elbow` / `straight` / `curved`, which switch to the dagre layout.
+All three are one factory with different defaults, so every parameter works on every theme. Notable switches: `shadow` (none/soft/lifted), `edgeLabels` (chip/plain), `pie` (donut/pie), `mindmap` (organic/plain), `grid` (none/dots), `connector` (rounded, the default, or elbow/straight/curved, which switch to the dagre layout).
 
 ## Status
 
