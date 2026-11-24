@@ -2,6 +2,8 @@
 
 **Make [Mermaid](https://mermaid.js.org) diagrams look good.** Modern themes, SVG post-processing, a CLI and a live playground, built around stock Mermaid so every diagram type keeps working.
 
+**[Try it live in the playground →](https://pravin.github.io/prettymaids/)**
+
 ![Stock mermaid, prettymaids, and prettymaids dark](docs/images/hero.png)
 
 - **Modern defaults.** Hairline borders, soft shadows, chip-style edge labels, rounded boxes, Inter typography.
