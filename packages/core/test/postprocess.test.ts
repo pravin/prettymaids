@@ -82,13 +82,15 @@ describe('config', () => {
     const c = config('maid') as any;
     expect(c.theme).toBe('base');
     expect(c.themeCSS).toContain('stroke');
-    expect(c.flowchart.curve).toBe('step');
+    expect(c.flowchart.curve).toBeUndefined();
+    expect(c.layout).toBeUndefined();
     expect(c.flowchart.padding).toBe(22);
   });
   it('applies parameter overrides', () => {
-    const c = config('maid', { padding: 30, curve: 'basis', fontSize: 20 }) as any;
+    const c = config('maid', { padding: 30, connector: 'curved', fontSize: 20 }) as any;
     expect(c.flowchart.padding).toBe(30);
     expect(c.flowchart.curve).toBe('basis');
+    expect(c.layout).toBe('dagre');
     expect(c.themeVariables.fontSize).toBe('20px');
   });
   it('rejects unknown themes', () => {

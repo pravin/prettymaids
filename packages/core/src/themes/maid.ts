@@ -8,6 +8,15 @@ const fonts: Record<string, string> = {
   Mono: `ui-monospace, 'SF Mono', Menlo, Consolas, monospace`,
 };
 
+// `rounded` keeps mermaid's default layout (orthogonal, rounded corners). The others switch to
+// the dagre layout, the only one that honours the edge curve setting.
+const connectors: Record<string, { layoutEngine?: string; curve?: string }> = {
+  rounded: {},
+  elbow: { layoutEngine: 'dagre', curve: 'step' },
+  straight: { layoutEngine: 'dagre', curve: 'linear' },
+  curved: { layoutEngine: 'dagre', curve: 'basis' },
+};
+
 const num = (key: string, label: string, group: string, def: number, min: number, max: number, step = 1): ParamSpec => ({
   key, label, group, kind: 'number', default: def, min, max, step,
 });
@@ -35,7 +44,7 @@ export const maidParams: ParamSpec[] = [
   num('rankSpacing', 'Rank gap', 'Spacing', 80, 20, 160, 2),
   num('radius', 'Corner radius', 'Shape', 4, 0, 24),
   num('strokeWidth', 'Line weight', 'Shape', 1.5, 0.5, 4, 0.25),
-  { key: 'curve', label: 'Connector style', group: 'Shape', kind: 'choice', default: 'step', choices: ['step', 'linear', 'basis'] },
+  { key: 'connector', label: 'Connector style', group: 'Shape', kind: 'choice', default: 'rounded', choices: Object.keys(connectors) },
   { key: 'paintBackground', label: 'Background', group: 'Colours', kind: 'choice', default: 'transparent', choices: ['transparent', 'solid'] },
   color('background', 'Background colour', '#ffffff'),
   color('nodeFill', 'Node fill', '#dcebfa'),
@@ -92,7 +101,7 @@ function create(name: string, params: ParamSpec[], overrides: Params = {}): Them
       pie: { textPosition: 0.65 },
       mindmap: { padding: 18, maxNodeWidth: 220 },
     },
-    curve: s('curve'),
+    ...(connectors[s('connector')] ?? {}),
     layout: { padding: n('padding'), nodeSpacing: n('nodeSpacing'), rankSpacing: n('rankSpacing') },
     themeVariables: {
       fontFamily,

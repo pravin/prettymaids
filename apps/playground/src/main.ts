@@ -1,5 +1,5 @@
 import mermaid from 'mermaid';
-import { render, themes, type Params } from 'prettymaids';
+import { render, themes, svgSize, withExplicitSize, type Params } from 'prettymaids';
 import './style.css';
 
 const STOCK = 'stock';
@@ -138,14 +138,9 @@ function save(blob: Blob, filename: string) {
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }
 
-function svgSize(svg: string): { w: number; h: number } {
-  const vb = /viewBox="[\d.\-]+ [\d.\-]+ ([\d.]+) ([\d.]+)"/.exec(svg);
-  return { w: Math.ceil(Number(vb?.[1] ?? 800)), h: Math.ceil(Number(vb?.[2] ?? 600)) };
-}
-
 async function toPng(svg: string, scale = 2): Promise<Blob> {
   const { w, h } = svgSize(svg);
-  const sized = svg.replace(/<svg([^>]*?)\swidth="[^"]*"/, '<svg$1').replace('<svg', `<svg width="${w}" height="${h}"`);
+  const sized = withExplicitSize(svg);
   const img = new Image();
   img.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(sized)}`;
   await img.decode();

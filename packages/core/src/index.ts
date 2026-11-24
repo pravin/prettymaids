@@ -4,3 +4,4 @@ export { config } from './config.js';
 export { postprocess } from './postprocess.js';
 export { themes, getTheme, defaultTheme } from './themes/index.js';
 export type { Theme, ThemeDef, ParamSpec, Params, ParamValue } from './types.js';
+export { svgSize, withExplicitSize } from './svg.js';

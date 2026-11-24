@@ -34,8 +34,10 @@ export interface Theme {
   background?: string;
   /** Corner radius applied to rectangular nodes. */
   radius: number;
-  /** Mermaid flowchart edge curve (`basis`, `linear`, `step`, ...). */
+  /** Mermaid flowchart edge curve (`basis`, `linear`, `step`). Only honoured by the dagre layout. */
   curve?: string;
+  /** Mermaid layout engine. Unset keeps mermaid's default (orthogonal, rounded connectors). */
+  layoutEngine?: string;
   /** Mermaid flowchart layout spacing, in px. */
   layout: { padding: number; nodeSpacing: number; rankSpacing: number };
   /** Extra mermaid config merged into `config()` (per-diagram sizing: sequence, gantt, gitGraph, ...). */
