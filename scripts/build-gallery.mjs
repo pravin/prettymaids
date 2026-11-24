@@ -34,7 +34,7 @@ for (const name of names) {
 
 const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>prettymaids gallery</title>
-<meta name="description" content="Stock Mermaid next to prettymaids themes, for every diagram type.">
+XX
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f3f5f9;--card:#fff;--text:#1c2433;--muted:#5b6678;--line:#e0e5ee;--accent:#4f7cf0}
